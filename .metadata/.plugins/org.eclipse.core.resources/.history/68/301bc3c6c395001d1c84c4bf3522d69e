@@ -1,0 +1,60 @@
+package com.app.lokesh.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.app.lokesh.entity.Employee;
+import com.app.lokesh.service.IEmployeeService;
+
+@Controller // Object + HTTP support
+@RequestMapping("/employee")
+public class EmployeeController {
+	
+	@Autowired
+	private IEmployeeService service;
+
+	/**
+	 * This method is used to display the employee register page
+	 */
+	@GetMapping("/register")
+	public String showRegPage() {
+		return "EmployeeRegister";
+	}
+
+	/**
+	 * This method is used to save the employee data
+	 * from HTML from and read the data using @ModelAttribute
+	 * and data send back from controller to UI we use Model (Memory)
+	 */
+	@PostMapping("/save")
+	public String saveFormData(
+			@ModelAttribute Employee employee, 
+			Model model
+			) 
+	{
+		Integer id = service.saveEmployee(employee);
+		String message = new StringBuffer().append("Employee'").append(id).
+							append("'Registered").toString();
+		model.addAttribute("message", message);
+		return "EmployeeRegister";
+
+	}
+	
+	/**
+	 * This Method is used to Fetch all the Employee Records
+	 * from Database and Display at UI using Model Memory
+	 */
+	@GetMapping("/show")
+	public String showEmpData(Model model) {
+	List<Employee>empList = service.getAllEmployees();
+	model.addAttribute("empList", empList);
+		return"EmployeeData";
+	}
+}

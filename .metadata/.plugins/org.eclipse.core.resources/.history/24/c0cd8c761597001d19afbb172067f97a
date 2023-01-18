@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>book data page</title>
+</head>
+<body>
+	<h3>welcome to book data page</h3>
+	<table border="1px">	
+		<tr>
+			<td>Book_Id</td>
+			<td>Book_Name</td>
+			<td>Book_Author</td>
+			<td>Book_Type</td>
+			<td>Book_Cost</td>
+			<td>Book_Gst</td>
+			<td>Operations</td>
+		</tr>
+		<tr th:each="book: ${booksList}">
+			<td>[[${book.bookId}]]</td>
+			<td>[[${book.bookName}]]</td>
+			<td>[[${book.bookAuthor}]]</td>
+			<td>[[${book.bookType}]]</td>
+			<td>[[${book.bookCost}]]</td>
+			<td>[[${book.bookGst}]]</td>
+			<td>
+				<a href="@{book/edit(id=${book.bookId})}">Edit</a> 
+				<a href="@{book/delete(id=${book.bookId})}">Delete</a>
+			</td>
+		</tr>
+	
+	</table>
+	<h4>[[${message}]]</h4>
+</body>
+</html>

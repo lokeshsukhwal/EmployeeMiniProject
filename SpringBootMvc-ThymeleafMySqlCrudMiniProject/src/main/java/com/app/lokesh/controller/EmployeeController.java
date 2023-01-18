@@ -1,0 +1,141 @@
+package com.app.lokesh.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.app.lokesh.entity.Employee;
+import com.app.lokesh.exception.EmployeeNotFoundException;
+import com.app.lokesh.service.IEmployeeService;
+
+@Controller // CreateObject + HTTP Method support
+@RequestMapping("/employee")
+public class EmployeeController {
+	
+	@Autowired
+	private IEmployeeService service;
+
+	/**
+	 * This method is used to display the employee register page
+	 */
+	@GetMapping("/register")
+	public String showRegPage() {
+		return "EmployeeRegister";
+	}
+
+	/**
+	 * This method is used to save the employee data
+	 * from HTML from and read the data using @ModelAttribute
+	 * and data send back from controller to UI we use Model (Memory)
+	 */
+	@PostMapping("/save")
+	public String saveFormData(
+			@ModelAttribute Employee employee, 
+			Model model
+			) 
+	{
+		Integer id = service.saveEmployee(employee);
+		String message = new StringBuffer().append("Employee'").append(id).
+							append("'Registered").toString();
+		model.addAttribute("message", message);
+		return "EmployeeRegister";
+
+	}
+	
+	/**
+	 * This Method is used to Fetch all the Employee Records
+	 * from Database and Display at UI using Model Memory
+	 * @param model
+	 * @param message
+	 * @return EmployeeList
+	 */
+	@GetMapping("/show")
+	public String showEmpData(
+			Model model,
+			@RequestParam(value = "message",required = false)String message,
+			@PageableDefault(page = 0,size = 3)Pageable pageable
+			)
+	{
+	Page<Employee>page = service.getEmployeePage(pageable);
+	model.addAttribute("employeesList", page.getContent());
+	model.addAttribute("page", page);
+	model.addAttribute("message", message);
+		return"EmployeeData";
+	}
+	
+	/**
+	 * This method is used to delete employee records from 
+	 * database and send message to UI and redirect to same page
+	 * @RequestParam is used to  method parameter should be bound to a webrequest parameter
+	 * and RedirectAttributes send data from one controller Method to another method
+	 * @param empId
+	 * @param attributes
+	 * @return message
+	 */
+	@GetMapping("/delete")
+	public String deleteEmployee(
+			@RequestParam("id")Integer empId,
+			RedirectAttributes attributes
+			) 
+	{
+		String message = null;
+		try {
+			service.deleteEmployee(empId);
+			 message = new StringBuffer().append("Employee'")
+							.append(empId).append("'Deleted").toString();
+			
+		} catch (EmployeeNotFoundException e) {
+			e.printStackTrace();
+			e.getMessage();
+		}
+		attributes.addAttribute("message", message);
+		return "redirect:show";
+	}
+	
+	/**
+	 * This method is used to display the Edit HTML page at UI
+	 * by clicking edit Hyperlink so it will redirect to EmployeeEdit
+	 * page which is used to edit the employee data except the Employee ID 
+	 * @return EmployeeEdit.html
+	 */
+	@GetMapping("/edit")
+	public String editEmpForm(
+			@RequestParam("id")Integer empId,
+			Model model,
+			RedirectAttributes attributes
+			) 
+	{
+		String page = null;
+		try {
+			Employee employee = service.getOneEmployee(empId);
+			model.addAttribute("employee", employee);
+			page="EmployeeEdit";
+			
+		} catch (EmployeeNotFoundException e) {
+			e.printStackTrace();
+			attributes.addAttribute("message", e.getMessage());
+			page="redirect:show";
+		}
+		return page;
+	}
+	
+	@PostMapping("/update")
+	public String updateEmpData(
+			@ModelAttribute Employee employee,
+			RedirectAttributes attributes
+			) 
+	{
+		service.updateEmployee(employee);
+		attributes.addAttribute("message", "Employee '"+employee.getEmpId()+"' Updated");
+		return"redirect:show";
+	}
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>book register page</title>
+</head>
+<body>
+	<pre>
+	<h3>welcome to book register page</h3>
+	<form th:action="save" method="POST">
+		BookName : <input type="text" name="bookName">
+		BookAuthor : <input type="text" name="bookAuthor">
+		BookCost : <input type="text" name="bookCost">
+		BookType : <select name="bookType">
+						<option value="#">-select-</option>
+						<option value="java">JAVA</option>
+						<option value="Python">PYTHON</option>
+						<option value="angular">ANGULAR</option>
+						<option value="hibernate">HIBERNATE</option>
+					</select>
+		<input type="submit" value="Register Book" >			
+		<button type="submit" >Register Book</button>			
+	
+	</form>
+	</pre>
+</body>
+</html>

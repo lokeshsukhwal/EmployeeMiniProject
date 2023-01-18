@@ -1,0 +1,12 @@
+package com.app.lokesh.service;
+
+import java.util.List;
+
+import com.app.lokesh.entity.Book;
+
+public interface IBookServie {
+	Integer saveBook(Book book);
+	void deleteBook(Integer id);
+	Book getOneBook(Integer id);
+	List<Book>getAllBooks();
+}

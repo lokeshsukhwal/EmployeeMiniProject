@@ -1,0 +1,8 @@
+package com.app.lokesh.service;
+
+import com.app.lokesh.entity.Book;
+
+public interface IBookServie {
+	Integer saveBook(Book book);
+	void deleteBook(Integer id);
+}

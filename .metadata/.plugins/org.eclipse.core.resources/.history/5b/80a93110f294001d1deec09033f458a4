@@ -1,0 +1,27 @@
+package com.app.lokesh.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.app.lokesh.entity.Employee;
+
+@Controller  //Object + HTTP support
+public class EmployeeController {
+	
+	// 1. show register page
+	@GetMapping("/register")
+	public String showRegPage() {
+		return"EmployeeRegister";
+	}
+	
+	// 2. Employee Data 
+	@PostMapping("/save")
+	public String dataSave(@ModelAttribute Employee employee,Model model) {
+		
+		return"EmployeeRegister";
+		
+	}
+}

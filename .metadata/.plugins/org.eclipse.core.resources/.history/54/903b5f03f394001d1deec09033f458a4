@@ -1,0 +1,7 @@
+package com.app.lokesh.service.impl;
+
+import com.app.lokesh.service.IEmployeeService;
+
+public class EmployeeServiceImpl implements IEmployeeService {
+
+}

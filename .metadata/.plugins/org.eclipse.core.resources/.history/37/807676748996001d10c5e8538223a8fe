@@ -1,0 +1,55 @@
+package com.app.lokesh.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.lokesh.entity.Employee;
+import com.app.lokesh.exception.EmployeeNotFoundException;
+import com.app.lokesh.repository.IEmployeeRepository;
+import com.app.lokesh.service.IEmployeeService;
+
+@Service // createObject,TxManagement,BusinessLogic
+public class EmployeeServiceImpl implements IEmployeeService {
+	
+	@Autowired
+	private IEmployeeRepository repository;
+
+	@Override
+	public Integer saveEmployee(Employee employee) {
+		Double hra = (employee.getEmpSalary() * 10.0 / 100);
+		Double ta = (employee.getEmpSalary() * 4.0 / 100);
+
+		employee.setHra(hra);
+		employee.setTa(ta);
+		Employee emp = repository.save(employee);
+		return emp.getEmpId();
+	}
+
+	@Override
+	public void updateEmployee(Employee employee) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteEmployee(Integer id) {
+		repository.findById(id).
+		orElseThrow(()-> new EmployeeNotFoundException("Employee '"+id+"'Not Found"));
+	}
+
+	@Override
+	public Employee getOneEmployee(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		List<Employee> list = repository.findAll();
+		return list;
+	}
+
+}

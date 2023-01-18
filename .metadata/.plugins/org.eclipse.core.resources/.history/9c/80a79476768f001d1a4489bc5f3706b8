@@ -1,0 +1,39 @@
+package com.app.lokesh.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.app.lokesh.entity.Employee;
+
+@Controller
+public class EmployeeController {
+	
+	@GetMapping("/home")
+	public String displayRegPage(Model model) {
+		//primitive data type
+		model.addAttribute("empLocation", "Hydrabaad");
+		model.addAttribute("employeeStatus", "active");
+		
+		//Employee Object type
+		Employee employee = new Employee();
+		employee.setEmpId(201);
+		employee.setEmpName("Mukesh");
+		employee.setEmpSalary(1000.0);
+		model.addAttribute("employee", employee);
+		
+		//List type object
+		List<Employee> employees  = List.of(
+				new Employee(10,"Ramesh",1000.0),
+				new Employee(11,"Mahesh",1200.0),
+				new Employee(12,"Parkash",1400.0),
+				new Employee(13,"Ravi",1500.0),
+				new Employee(14,"Lokesh",1500.0)
+				);
+		model.addAttribute("list", employees);
+//		System.out.println(model.getClass().getName());
+		return "EmployeeRegister";
+	}
+}

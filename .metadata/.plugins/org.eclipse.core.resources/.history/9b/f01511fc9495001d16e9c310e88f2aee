@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee register page</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+	<h1 class="bg-primary text-white text-center">welcome to employee
+		register page</h1>
+	<div class="container-fluid form-control">
+		<form action="save" method="post" class="mt-4">
+			Employee Name : <input type="text" name="empName"
+				class="form-control" placeholder="Enter Employee Name">
+			Employee salary : <input type="text" name="empSalary"
+				class="form-control" placeholder="Enter Employee salary">
+			Employee mail : <input type="email" name="empMail"
+				class="form-control" placeholder="Enter Employee Mail">
+				
+		<button type="submit" class="btn btn-primary mt-3">Register Employee</button>		
+
+		</form>
+	</div>
+
+</body>
+</html>

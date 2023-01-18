@@ -1,0 +1,48 @@
+package com.app.lokesh.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.app.lokesh.entity.Book;
+import com.app.lokesh.exception.BookNotFoundException;
+import com.app.lokesh.repository.IBookRepository;
+import com.app.lokesh.service.IBookServie;
+import com.app.lokesh.util.BookUtil;
+
+@Service
+public class BookServiceImpl implements IBookServie {
+
+	@Autowired
+	private IBookRepository repository;
+
+	@Override
+	public Integer saveBook(Book book) {
+		BookUtil.gstCalaculations(book);
+		Book books = repository.save(book);
+		return books.getBookId();
+	}
+
+	@Override
+	public void deleteBook(Integer id) {
+		try {
+			repository.delete(repository.findById(id).
+					orElseThrow(()-> new BookNotFoundException("bOOK '"+id+"' NOT FOUND")));
+		} catch (BookNotFoundException e) {
+			e.printStackTrace();
+			e.getMessage();
+		}
+	}
+
+	@Override
+	public List<Book> getAllBooks() {
+		List<Book> bookList = repository.findAll();
+		return bookList;
+	}
+	
+	
+
+}

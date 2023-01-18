@@ -1,0 +1,7 @@
+package com.app.lokesh.service;
+
+import com.app.lokesh.entity.Employee;
+
+public interface IEmployeeService {
+	Integer saveEmployee(Employee employee);
+}

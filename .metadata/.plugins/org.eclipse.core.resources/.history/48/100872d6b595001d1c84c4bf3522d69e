@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee register page</title>
+<link rel="stylesheet"
+	th:href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+	<h1 class=" text-primary text-center">welcome to employee register page</h1>
+	<div class="container">
+		<form th:action="@{/employee/save}" method="post" class="mt-4 form">
+			Employee Name : <input type="text" name="empName"class="form-control">
+			Employee salary : <input type="text" name="empSalary"class="form-control">
+			Employee mail : <input type="email" name="empMail"class="form-control">
+			Employee Department : <select name="department" class="form-control">
+										<option value="#">-select-</option>
+										<option value="dev">DEV</option>
+										<option value="ba">BA</option>
+										<option value="qa">QA</option>
+								  </select> 
+				
+		<button type="button" class="btn btn-outline-primary mt-3">Register Employee</button>		
+
+		</form>
+		<div class="bg-success text-white">${message}</div>
+	</div>
+	</div>
+
+</body>
+</html>

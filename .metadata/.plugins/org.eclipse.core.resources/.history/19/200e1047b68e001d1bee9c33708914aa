@@ -1,0 +1,9 @@
+<html>
+	<head>
+		<title>emp register</title>
+	</head>
+	<body>
+		<h1>welcome to employee register page<h1>
+		"${empId;empName;empSal}"
+	</body>
+</html>

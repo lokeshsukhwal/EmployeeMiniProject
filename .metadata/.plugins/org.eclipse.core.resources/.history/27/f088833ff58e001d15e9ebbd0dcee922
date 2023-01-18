@@ -1,0 +1,5 @@
+package com.app.lokesh.entity;
+
+public class Employee {
+
+}

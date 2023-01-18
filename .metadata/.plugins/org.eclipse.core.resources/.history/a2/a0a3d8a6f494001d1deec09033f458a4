@@ -1,0 +1,37 @@
+package com.app.lokesh.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.app.lokesh.entity.Employee;
+import com.app.lokesh.service.IEmployeeService;
+
+@Controller // Object + HTTP support
+public class EmployeeController {
+	@Autowired
+	private IEmployeeService service;
+
+	// 1. show register page
+	@GetMapping("/register")
+	public String showRegPage() {
+		return "EmployeeRegister";
+	}
+
+	// 2. Employee Data saving
+	@PostMapping("/save")
+	public String dataSave(
+			@ModelAttribute Employee employee, 
+			Model model) 
+	{
+		Integer id = service.saveEmployee(employee);
+		StringBuffer message = new StringBuffer().append("Employee'").append(id).
+				append("'registerd");
+		model.addAttribute("message", message);
+		return "EmployeeRegister";
+
+	}
+}

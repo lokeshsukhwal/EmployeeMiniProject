@@ -1,0 +1,43 @@
+package com.app.lokesh.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.app.lokesh.entity.Book;
+import com.app.lokesh.service.IBookServie;
+
+@Controller
+@RequestMapping("/book")
+public class BookController {
+	
+	@Autowired
+	private IBookServie service;
+
+	@GetMapping("/register")
+	public String displayBookReg() {
+		return "BookRegister";
+	}
+	
+	@PostMapping("/save")
+	public String name(
+			@ModelAttribute Book book,
+			Model model
+			) 
+	{
+	Integer id = service.saveBook(book);
+		String message = new StringBuffer().append("Book '").append(id).
+				append("'Registerd").toString(); 
+		model.addAttribute("message", message);
+		return "BookRegister";		
+	}
+	
+	@GetMapping("/delete")
+	public String deleteBook() {
+		return"BookData";
+	}
+}

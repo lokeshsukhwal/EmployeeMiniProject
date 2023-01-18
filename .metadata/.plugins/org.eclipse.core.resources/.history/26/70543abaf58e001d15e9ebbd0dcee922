@@ -1,0 +1,23 @@
+package com.app.lokesh.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.app.lokesh.entity.Employee;
+
+@Controller
+public class EmployeeController {
+	
+	@GetMapping("/home")
+	public String displayRegPage(Model model) {
+		//primitive data type
+		model.addAttribute("empLocation", "Hydrabaad");
+		model.addAttribute("employeeStatus", "active");
+		
+		//Employee Object type
+		Employee employee = new Employee();
+		employee
+		return "EmployeeRegister";
+	}
+}

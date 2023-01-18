@@ -1,0 +1,24 @@
+package com.app.lokesh.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.lokesh.entity.Book;
+import com.app.lokesh.repository.IBookRepository;
+import com.app.lokesh.service.IBookServie;
+import com.app.lokesh.util.BookUtil;
+
+@Service
+public class BookServiceImpl implements IBookServie {
+
+	@Autowired
+	private IBookRepository repository;
+
+	@Override
+	public Integer saveBook(Book book) {
+		BookUtil.gstCalaculations(book);
+		Book books = repository.save(book);
+		return books.getBookId();
+	}
+
+}

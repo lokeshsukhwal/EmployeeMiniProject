@@ -1,0 +1,21 @@
+package com.app.lokesh.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.lokesh.entity.Employee;
+import com.app.lokesh.repository.IEmployeeRepository;
+import com.app.lokesh.service.IEmployeeService;
+
+@Service //createObject,TxManagement,Logic
+public class EmployeeServiceImpl implements IEmployeeService {
+	@Autowired
+	private IEmployeeRepository repository;
+
+	@Override
+	public Integer saveEmployee(Employee employee) {
+	Employee emp = repository.save(employee);
+		return emp.getEmpId();
+	}
+
+}

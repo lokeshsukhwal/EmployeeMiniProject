@@ -1,0 +1,19 @@
+package com.app.lokesh.service;
+
+import java.util.List;
+
+import com.app.lokesh.entity.Employee;
+import com.app.lokesh.exception.EmployeeNotFoundException;
+
+public interface IEmployeeService {
+	
+	Integer saveEmployee(Employee employee);
+
+	void updateEmployee(Employee employee);
+
+	void deleteEmployee(Integer id) throws EmployeeNotFoundException;
+
+	Employee getOneEmployee(Integer id);
+
+	List<Employee> getAllEmployees();
+}
