@@ -9,5 +9,3 @@ dependencies
 4) Spring Boot Devtools
 5) Spring web
 6) Thymeleaf 
-
-Server Port : 9090
