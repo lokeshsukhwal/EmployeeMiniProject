@@ -1,5 +1,5 @@
 # EmployeeMiniProject
-spring MVC mini project with mysql database and thymeleaf mini project (CURD) operations
+Spring MVC Module mini project with mysql database and thymeleaf(UI) mini project (CURD) operations
 
 dependencies
 =============
